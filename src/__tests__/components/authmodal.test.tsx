@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import AuthModal from "@/app/(auth)/page";
+import AuthModal from "@/components/AuthModal";
 import { UserInfoProvider } from "@/context/UserInfoContext";
 import useAuthStatusCheck from "@/hooks/useAuthStatusCheck";
 import { ChakraProvider } from "@chakra-ui/react";
