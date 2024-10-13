@@ -51,9 +51,9 @@ export default function RootLayout({
 
               {/* Main content area */}
               <Box
-                className='flex-1 overflow-y-auto h-screen'
+                className='flex-1 overflow-y-auto'
                 bgGradient='linear(to-b, gray.900, gray.600)'
-                pt={{ base: "52px", md: "93px" }} // Padding-top to avoid overlap with the fixed header
+                pt={{ base: "64px", md: "88px" }}
               >
                 {children}
               </Box>

@@ -1,102 +1,47 @@
 "use client";
 
-import useAuthStatusCheck from "@/hooks/useAuthStatusCheck";
-import {
-  Box,
-  Flex,
-  Image,
-  Link,
-  Text,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import Link from "next/link";
 import UserMenu from "./UserMenu";
 
 const Header: React.FC = () => {
-  const { isValidUser } = useAuthStatusCheck();
-
-  // Determine if the screen size is mobile or larger
-  const isMobile = useBreakpointValue({ base: true, md: false });
-
   return (
-    <Box
-      position='fixed'
-      top={0}
-      left={0}
-      width='100%'
-      bg='gray.900'
-      color='white'
-      px={4} // Reduced padding for mobile
-      py={2} // Reduced padding for mobile
-      boxShadow='sm'
-      zIndex={10}
-    >
-      <Flex
-        justify='space-between'
-        align='center'
-      >
-        <Flex
-          alignItems='center'
-          gap={isMobile ? 4 : 24} // Adjust the gap based on screen size
-        >
+    <div className='fixed top-0 left-0 w-full bg-gray-900 text-white px-4 py-2 md:py-5 shadow-sm z-10'>
+      <div className='flex justify-between items-center'>
+        <div className='flex items-center gap-4 md:gap-24'>
           {/* Company Logo and Name */}
-          <Link
+          <a
             href='/'
-            _hover={{ textDecoration: "none" }}
+            className='flex items-center gap-2 text-white'
           >
-            <Flex
-              alignItems='center'
-              gap='8px'
-              color='white'
-            >
-              <Image
-                src='/assets/company_logo.png'
-                alt='Leonardo.ai'
-                boxSize={isMobile ? "36px" : "48px"} // Smaller logo on mobile
-                objectFit='contain'
-                cursor='pointer'
-                _hover={{ opacity: 0.8 }}
-              />
-              {!isMobile && ( // Hide company name on mobile
-                <Text
-                  fontSize='1.25em'
-                  fontWeight='500'
-                >
-                  Leonardo.Ai
-                </Text>
-              )}
-            </Flex>
-          </Link>
+            <img
+              src='/assets/company_logo.png'
+              alt='Leonardo.ai'
+              className='h-9 w-auto md:h-12 object-contain cursor-pointer hover:opacity-80'
+            />
+            <span className='hidden md:inline text-lg font-medium'>
+              Leonardo.Ai
+            </span>
+          </a>
 
           {/* Navigation Menu */}
-          {isValidUser && (
-            <Flex gap={6}>
-              <Link
-                href='/dashboard/information'
-                fontSize={{ base: "0.5em", md: "1em" }}
-                fontWeight='500'
-                _hover={{ color: "gray.300" }}
-              >
-                Information
-              </Link>
-            </Flex>
-          )}
-        </Flex>
+          <div className='flex gap-6'>
+            <Link
+              href='/dashboard/information'
+              className='text-xs md:text-base font-medium hover:text-gray-300'
+            >
+              Information
+            </Link>
+          </div>
+        </div>
 
-        {/* User Menu with avatar only on mobile */}
-        <Flex alignItems='center'>
-          <UserMenu avatarOnly={isMobile} />
-        </Flex>
-      </Flex>
+        {/* User Menu */}
+        <div className='flex items-center'>
+          <UserMenu />
+        </div>
+      </div>
 
-      <Box
-        position='absolute'
-        bottom={0}
-        left={0}
-        width='100%'
-        height='2px'
-        bgGradient='linear(to-r, #fa5560, #b14bf4, #4d91ff 70%)'
-      />
-    </Box>
+      <div className='absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#fa5560] via-[#b14bf4] to-[#4d91ff]'></div>
+    </div>
   );
 };
 

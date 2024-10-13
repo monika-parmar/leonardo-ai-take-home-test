@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUserInfoContext } from "../context/UserInfoContext";
 
-const UserMenu: React.FC<UserMenuProps> = ({ avatarOnly = false }) => {
+const UserMenu: React.FC = () => {
   const router = useRouter();
   const { onOpen } = useDisclosure(); // Menu disclosure
   const { username, jobTitle, clearUserInfo } = useUserInfoContext();
@@ -52,60 +52,42 @@ const UserMenu: React.FC<UserMenuProps> = ({ avatarOnly = false }) => {
       <Menu>
         <MenuButton
           as='button'
-          bg='transparent'
+          className='bg-transparent p-0'
           onClick={onOpen} // Open the menu on button click
-          p={0}
         >
-          <Flex
-            align='center'
-            gap={avatarOnly ? 0 : 5} // No gap for avatar-only mode
-          >
+          <Flex className='items-center gap-3 md:gap-5'>
+            {/* Avatar with responsive sizes */}
             <Avatar size={avatarSize}>
-              {" "}
-              {/* Adjust avatar size based on screen */}
-              <AvatarBadge
-                boxSize='1.25em'
-                bg='green.500'
-              />
+              <AvatarBadge className='h-4 w-4 bg-green-500' />
             </Avatar>
-            {!avatarOnly && ( // Hide text if avatarOnly is true (mobile mode)
-              <Box
-                textAlign='left'
-                color='white'
-                minW={{ base: "0", md: "150px" }}
-                maxWidth='250px'
-                width='100%'
-                p={4}
-              >
-                <Text
-                  fontWeight='bold'
-                  isTruncated
-                >
-                  {capitalizeFirstLetter(username ?? "")}
-                </Text>
-                <Text
-                  fontSize='sm'
-                  isTruncated
-                >
-                  {capitalizeFirstLetter(jobTitle ?? "")}
-                </Text>
-              </Box>
-            )}
-            {!avatarOnly && <ChevronDownIcon />}{" "}
-            {/* Chevron icon hidden on mobile */}
+
+            {/* User information (hidden on mobile, visible on desktop) */}
+            <Box className='text-left text-white min-w-0 md:min-w-[150px] max-w-[250px] w-full px-4 hidden md:block'>
+              <Text className='font-bold truncate'>
+                {capitalizeFirstLetter(username ?? "")}
+              </Text>
+              <Text className='text-sm truncate'>
+                {capitalizeFirstLetter(jobTitle ?? "")}
+              </Text>
+            </Box>
+
+            {/* Chevron icon (hidden on mobile, visible on desktop) */}
+            <div className='hidden md:block'>
+              <ChevronDownIcon className='text-white' />
+            </div>
           </Flex>
         </MenuButton>
 
         <MenuList>
           <MenuItem
             color='teal'
-            onClick={() => onSelectMenu("settings")} // Navigate to profile settings
+            onClick={() => onSelectMenu("settings")}
           >
             Profile Settings
           </MenuItem>
           <MenuItem
             color='teal'
-            onClick={() => onSelectMenu("logout")} // Handle logout action
+            onClick={() => onSelectMenu("logout")}
           >
             Logout
           </MenuItem>
