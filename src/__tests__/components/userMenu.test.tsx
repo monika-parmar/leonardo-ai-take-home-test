@@ -21,7 +21,7 @@ jest.mock("@/context/UserInfoContext", () => ({
   useUserInfoContext: jest.fn(),
 }));
 
-jest.mock("@/app/(auth)/page", () => jest.fn(() => <div>AuthModal</div>));
+jest.mock("@/components/AuthModal", () => jest.fn(() => <div>AuthModal</div>));
 
 jest.mock("@/lib/capitaliseFirstCharacter", () => ({
   capitalizeFirstLetter: jest.fn((str) => str),
