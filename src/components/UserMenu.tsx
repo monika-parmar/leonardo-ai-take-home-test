@@ -1,6 +1,6 @@
 "use client";
 
-import AuthModal from "@/app/(auth)/page";
+import AuthModal from "./AuthModal";
 import { capitalizeFirstLetter } from "@/lib/capitaliseFirstCharacter";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
