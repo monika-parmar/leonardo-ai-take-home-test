@@ -1,14 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import Header from "@/components/Header";
-import useAuthStatusCheck from "@/hooks/useAuthStatusCheck";
 import UserMenu from "@/components/UserMenu";
 
-// Mock the UserMenu component and the useAuthStatusCheck hook
+// Mock the UserMenu component
 jest.mock("@/components/UserMenu");
-jest.mock("@/hooks/useAuthStatusCheck");
-
-const mockUseAuthStatusCheck = useAuthStatusCheck as jest.Mock;
 
 describe("Header Component", () => {
   beforeEach(() => {
