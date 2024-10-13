@@ -45,11 +45,9 @@ const mocks = [
 ];
 
 describe("Information Component", () => {
-  const mockPush = jest.fn();
   const mockUseSearchParams = new URLSearchParams();
 
   beforeEach(() => {
-    (useRouter as jest.Mock).mockReturnValue({ push: mockPush });
     (useSearchParams as jest.Mock).mockReturnValue(mockUseSearchParams);
   });
 
@@ -66,6 +64,8 @@ describe("Information Component", () => {
     );
 
   it("displays loading while waiting for the response", () => {
+    const mockReplace = jest.fn();
+    (useRouter as jest.Mock).mockReturnValue({ replace: mockReplace });
     const errorMocks = [
       {
         request: {
@@ -97,6 +97,8 @@ describe("Information Component", () => {
   });
 
   it("renders character cards when data is successfully fetched", async () => {
+    const mockReplace = jest.fn();
+    (useRouter as jest.Mock).mockReturnValue({ replace: mockReplace });
     renderComponent();
     mockUseBreakpointValue.mockReturnValue(false);
     // Wait for the data to load
@@ -109,7 +111,9 @@ describe("Information Component", () => {
 
   it("calls handlePageChange and updates the URL when pagination changes", async () => {
     renderComponent();
+    const mockPush = jest.fn();
     const user = userEvent.setup();
+    (useRouter as jest.Mock).mockReturnValue({ push: mockPush });
 
     const nextButton = await screen.findByText("Next");
     await user.click(nextButton);
