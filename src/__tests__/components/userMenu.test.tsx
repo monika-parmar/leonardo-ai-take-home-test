@@ -14,7 +14,7 @@ jest.mock("next/navigation", () => ({
 jest.mock("@chakra-ui/react", () => ({
   ...jest.requireActual("@chakra-ui/react"),
   useDisclosure: jest.fn().mockReturnValue({ onOpen: jest.fn() }),
-  useBreakpointValue: jest.fn().mockReturnValue("md"),
+  useBreakpointValue: jest.fn().mockReturnValue("md"), // Avoid testing responsive behavior
 }));
 
 jest.mock("@/context/UserInfoContext", () => ({
@@ -28,10 +28,10 @@ jest.mock("@/lib/capitaliseFirstCharacter", () => ({
 }));
 
 describe("UserMenu Component", () => {
-  const renderComponent = (avatarOnly = false) => {
+  const renderComponent = () => {
     return render(
       <ChakraProvider>
-        <UserMenu avatarOnly={avatarOnly} />
+        <UserMenu />
       </ChakraProvider>
     );
   };
@@ -40,7 +40,7 @@ describe("UserMenu Component", () => {
     jest.clearAllMocks();
   });
 
-  // Mock scrollTo for tests
+  // Mock scrollTo for elements
   beforeAll(() => {
     Element.prototype.scrollTo = jest.fn();
   });
@@ -59,24 +59,6 @@ describe("UserMenu Component", () => {
 
     expect(screen.getByText("john")).toBeInTheDocument();
     expect(screen.getByText("developer")).toBeInTheDocument();
-  });
-
-  it("renders avatar only when avatarOnly prop is true", () => {
-    const mockClearUserInfo = jest.fn();
-    const mockReplace = jest.fn();
-    (useRouter as jest.Mock).mockReturnValue({ replace: mockReplace });
-    (useUserInfoContext as jest.Mock).mockReturnValue({
-      username: "john",
-      jobTitle: "developer",
-      clearUserInfo: mockClearUserInfo,
-    });
-
-    renderComponent(true);
-
-    // Avatar should be present, but text and Chevron should not be visible
-    expect(screen.getByRole("button")).toBeInTheDocument();
-    expect(screen.queryByText("john")).not.toBeInTheDocument();
-    expect(screen.queryByText("developer")).not.toBeInTheDocument();
   });
 
   it("opens the profile settings modal when 'Profile Settings' is clicked", async () => {
