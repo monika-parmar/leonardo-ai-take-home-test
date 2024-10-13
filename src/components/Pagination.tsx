@@ -3,7 +3,7 @@ import { Button, Box, useBreakpointValue, Text } from "@chakra-ui/react";
 
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,
-  totalPages = 42,
+  totalPages,
   onPageChange,
 }) => {
   const handlePageChange = (page: number) => {
