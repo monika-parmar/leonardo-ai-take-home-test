@@ -3,7 +3,6 @@
 import Character from "@/components/Character";
 import Pagination from "@/components/Pagination";
 import { GET_CHARACTERS } from "@/graphql/query";
-import useAuthStatusCheck from "@/hooks/useAuthStatusCheck";
 import { useQuery } from "@apollo/client";
 import { Box, Grid, Spinner, Text } from "@chakra-ui/react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -12,14 +11,7 @@ import { Suspense, useCallback, useEffect, useState } from "react";
 const Information = () => {
   const router = useRouter(); // Hook to access the router for navigation
   const searchParams = useSearchParams(); // Hook to access the URL search parameters
-  const { isValidUser } = useAuthStatusCheck(); // Hook to check if the user is valid
 
-  // Redirect to the home page if the user is not valid
-  useEffect(() => {
-    if (!isValidUser) {
-      router.replace("/"); // Replace current URL with the home page
-    }
-  }, [isValidUser]);
   // Access the 'page' parameter from the URL
   const pageParam = searchParams.get("page");
   const initialPage = parseInt(pageParam || "1", 10); // Set default to 1 if no page parameter is present
