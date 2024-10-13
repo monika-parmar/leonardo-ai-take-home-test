@@ -1,3 +1,5 @@
+"use client";
+
 import { useUserInfoContext } from "@/context/UserInfoContext";
 import { ChevronUpIcon } from "@chakra-ui/icons"; // Import Chakra UI's up arrow icon
 import { Box, Flex, Icon, Text } from "@chakra-ui/react";
